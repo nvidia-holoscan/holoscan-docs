@@ -602,4 +602,4 @@ For feedback, discussion, and questions, please post to the Clara Holoscan SDK [
 
 ## Compliance Information
 
-Please refer to NVIDIA compliance information.
+Please refer to [Clara AGX Developer Kit Compliance Information](https://developer.nvidia.com/clara-agx-developer-kit-compliance-information) documentation.
