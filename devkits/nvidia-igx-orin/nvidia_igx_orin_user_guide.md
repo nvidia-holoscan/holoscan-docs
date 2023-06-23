@@ -6,7 +6,6 @@
 **intended for clinical use.**
 
 **Version:** 1.0
-> Refer to [this PDF user guide](https://developer.download.nvidia.com/CLARA/IGX-Orin-Developer-Kit-User-Guide-(v1.0).pdf) for the `Early Sample [ES]` version of the IGX Orin Developer Kit. Please note we do not plan to continue updating the ES user guide.
 
 ## Contents
 
