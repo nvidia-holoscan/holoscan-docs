@@ -494,33 +494,16 @@ $ sudo chmod -R 777 /media/m2
 1. Install Docker if it has not been installed on your system:
 ```
 $ sudo apt-get update
-$ sudo apt-get install -y docker.io
-$ docker -v
+$ sudo apt-get install -y docker.io docker-buildx
 ```
-2. If your Docker version is 23.0 or later you will also need to install Docker Buildx, as it will not be installed by default:
-```
-$ sudo apt-get install ca-certificates curl gnupg
-$ sudo install -m 0755 -d /etc/apt/keyrings
-$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-$ sudo chmod a+r /etc/apt/keyrings/docker.gpg
-
-$ echo \
-    "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-    "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-$ sudo apt-get update
-$ sudo apt-get install docker-buildx-plugin
-```
-
-3. Create a Docker data directory on the new m.2 SSD partition. This is where Docker will
+2. Create a Docker data directory on the new m.2 SSD partition. This is where Docker will
    store all of its data, including build cache and container images. These instructions
    use the path */media/m2/docker-data*, but you can use another directory name if preferred.
 ```
 $ sudo mkdir /media/m2/docker-data
 ```
 
-4. Configure Docker by writing the following to */etc/docker/daemon.json*:
+3. Configure Docker by writing the following to */etc/docker/daemon.json*:
 ```
 {
     "runtimes": {
@@ -534,13 +517,13 @@ $ sudo mkdir /media/m2/docker-data
 }
 ```
 
-5. Restart the Docker daemon:
+4. Restart the Docker daemon:
 ```
 $ sudo systemctl daemon-reload
 $ sudo systemctl restart docker
 ```
 
-6. Add the current user to the Docker groupso Docker commands can run without *sudo*.
+5. Add the current user to the Docker groupso Docker commands can run without *sudo*.
 ```
 # Create the docker group.
 $ sudo groupadd docker
@@ -550,7 +533,7 @@ $ sudo usermod -aG docker $USER
 $ newgrp docker 
 ```
 
-7. Verify that you can run a "hello world" container.
+6. Verify that you can run a "hello world" container.
 ```
 $ docker run hello-world
 ```
