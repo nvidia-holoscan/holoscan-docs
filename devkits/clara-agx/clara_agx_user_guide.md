@@ -496,6 +496,7 @@ $ sudo chmod -R 777 /media/m2
 $ sudo apt-get update
 $ sudo apt-get install -y docker.io docker-buildx
 ```
+
 2. Create a Docker data directory on the new m.2 SSD partition. This is where Docker will
    store all of its data, including build cache and container images. These instructions
    use the path */media/m2/docker-data*, but you can use another directory name if preferred.
