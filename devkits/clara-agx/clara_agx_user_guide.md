@@ -603,3 +603,24 @@ For feedback, discussion, and questions, please post to the Clara Holoscan SDK [
 ## Compliance Information
 
 Please refer to [Clara AGX Developer Kit Compliance Information](https://developer.nvidia.com/clara-agx-developer-kit-compliance-information) documentation.
+
+## Update Nvidia drivers
+ Download driver from:
+ https://www.nvidia.com/download/driverResults.aspx/226780/en-us/
+
+##### Unpack deb
+```sh
+sudo cp /var/nvidia-driver-local-repo-ubuntu2004-550.90.07/nvidia-driver-local-E3AF38C2-keyring.gpg /usr/share/keyrings/
+sudo dpkg -i nvidia-driver-local-repo-ubuntu2004-550.90.07_1.0-1_arm64.deb 
+```
+
+##### Install keyring
+```sh
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/arm64/cuda-keyring_1.1-1_all.deb 
+sudo apt install ./cuda-keyring_1.1-1_all.deb
+```
+##### Install and reboot
+```
+sudo apt install cuda-drivers-550
+sudo reboot
+```
