@@ -31,6 +31,7 @@ ________________________________________________________________________________
 15. [Known Issues and Troubleshooting](#known-issues-and-troubleshooting)
 16. [Additional Resources](#additional-resources)
 17. [Compliance Information](#compliance-information)
+18. [Update Nvidia drivers](#update-nvidia-drivers)
 
 ## Changes Since Last Update
 Note on dGPU only support in SDK:
