@@ -606,22 +606,38 @@ For feedback, discussion, and questions, please post to the Clara Holoscan SDK [
 Please refer to [Clara AGX Developer Kit Compliance Information](https://developer.nvidia.com/clara-agx-developer-kit-compliance-information) documentation.
 
 ## Update Nvidia drivers
- Download driver from:
- https://www.nvidia.com/download/driverResults.aspx/226780/en-us/
 
-##### Unpack deb
-```sh
-sudo cp /var/nvidia-driver-local-repo-ubuntu2004-550.90.07/nvidia-driver-local-E3AF38C2-keyring.gpg /usr/share/keyrings/
-sudo dpkg -i nvidia-driver-local-repo-ubuntu2004-550.90.07_1.0-1_arm64.deb 
-```
+### Install CUDA APT keyring
 
-##### Install keyring
 ```sh
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/arm64/cuda-keyring_1.1-1_all.deb 
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/sbsa/cuda-keyring_1.1-1_all.deb
 sudo apt install ./cuda-keyring_1.1-1_all.deb
+rm ./cuda-keyring_1.1-1_all.deb
+sudo apt-get update
 ```
-##### Install and reboot
-```
-sudo apt install cuda-drivers-550
+
+### Install drivers
+
+535 is the LTS version, but you can also install any other version from `apt policy cuda-drivers`, or just `cuda-drivers` for the latest available version:
+
+```sh
+sudo apt install cuda-drivers="535.*"
 sudo reboot
+```
+
+> **Note:** if you'd like to install the open kernel module flavor, you'll still need to list `cuda-drivers` package, as following [the regular instructions to switch flavor](https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/#switching-between-driver-module-flavors) would uninstall the L4T BSP packages which depend on `cuda-drivers` explicitly.
+>
+> ```sh
+> # Example for 560 drivers
+> sudo apt install cuda-drivers="560.*" nvidia-driver-560-open
+> sudo reboot
+> ```
+> 
+> For `535` that is even more tricky, as the CUDA APT repository does not include the `nvidia-driver-535-open` package. It is available from Canonical/Ubuntu servers instead, but with strict dependencies versions that precede what the NVIDIA repository provides (`535.183.01-0ubuntu0.20.04.1` instead of `535.183.06-0ubuntu1`) and APT cannot resolve it automatically and will error out with `Unmet dependencies` when running the command above. If you must use `535-open`, explicitly add all the dependencies listed by `Unmet dependencies / Depends:` suffixed with `=="535.183.01-0ubuntu0.20.04.1"` to your `apt install` command.
+
+### Validate Version
+
+```sh
+nvidia-smi
+# driver version only: nvidia-smi -i 0 --query-gpu=driver_version --format=csv,noheader
 ```
