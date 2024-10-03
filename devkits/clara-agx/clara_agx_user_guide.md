@@ -609,7 +609,7 @@ Please refer to [Clara AGX Developer Kit Compliance Information](https://develop
 
 ### Install CUDA APT keyring
 
-```sh
+```bash
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/sbsa/cuda-keyring_1.1-1_all.deb
 sudo apt install ./cuda-keyring_1.1-1_all.deb
 rm ./cuda-keyring_1.1-1_all.deb
@@ -618,16 +618,16 @@ sudo apt-get update
 
 ### Install drivers
 
-535 is the LTS version, but you can also install any other version from `apt policy cuda-drivers`, or just `cuda-drivers` for the latest available version:
+`535` is the LTS version, but you can also install any other version shown by `apt policy cuda-drivers`, or just `cuda-drivers` with no version string to install the latest drivers:
 
-```sh
+```bash
 sudo apt install cuda-drivers="535.*"
 sudo reboot
 ```
 
-> **Note:** if you'd like to install the open kernel module flavor, you'll still need to list `cuda-drivers` package, as following [the regular instructions to switch flavor](https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/#switching-between-driver-module-flavors) would uninstall the L4T BSP packages which depend on `cuda-drivers` explicitly.
+> **Note:** if you'd like to install the open kernel module flavor, you'll still need to list the `cuda-drivers` package, as following [the regular instructions to switch flavor](https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/#switching-between-driver-module-flavors) would uninstall the L4T BSP packages which depend on `cuda-drivers` explicitly.
 >
-> ```sh
+> ```bash
 > # Example for 560 drivers
 > sudo apt install cuda-drivers="560.*" nvidia-driver-560-open
 > sudo reboot
@@ -637,7 +637,25 @@ sudo reboot
 
 ### Validate Version
 
-```sh
-nvidia-smi
-# driver version only: nvidia-smi -i 0 --query-gpu=driver_version --format=csv,noheader
+Run `nvidia-smi` after reboot to confirm your driver version.
+
+```
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.183.06             Driver Version: 535.183.06   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  Quadro RTX 6000                On  | 00000000:09:00.0  On |                  Off |
+| 33%   34C    P8              16W / 260W |     51MiB / 24576MiB |      1%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+```
+
+To print the driver version only, you can run:
+
+```bash
+$ nvidia-smi --query-gpu=driver_version --format=csv,noheader
+535.183.06
 ```
