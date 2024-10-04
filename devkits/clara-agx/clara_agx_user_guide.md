@@ -635,6 +635,23 @@ sudo reboot
 > 
 > For `535` that is even more tricky, as the CUDA APT repository does not include the `nvidia-driver-535-open` package. It is available from Canonical/Ubuntu servers instead, but with strict dependencies versions that precede what the NVIDIA repository provides (`535.183.01-0ubuntu0.20.04.1` instead of `535.183.06-0ubuntu1`) and APT cannot resolve it automatically and will error out with `Unmet dependencies` when running the command above. If you must use `535-open`, explicitly add all the dependencies listed by `Unmet dependencies / Depends:` suffixed with `=="535.183.01-0ubuntu0.20.04.1"` to your `apt install` command.
 
+**Known Limitation**: If you run into an error like this:
+
+   ```
+   Depends: cuda-drivers-XXX (>= XXX.YYY.ZZZ) but it is not going to be installed
+   ```
+
+Try to upgrade your current drivers to the latest minor version before upgrading the major version:
+
+   ```bash
+   # Example: if you are on 535.161.08 and want to upgrade to 560, you might need to upgrade to the latest 535 first
+   sudo apt install cuda-drivers="535.*"
+
+   # Now try upgrading to 560 again
+   sudo apt install cuda-drivers="560.*" nvidia-driver-560-open
+   sudo reboot
+   ```
+
 ### Validate Version
 
 Run `nvidia-smi` after reboot to confirm your driver version.
