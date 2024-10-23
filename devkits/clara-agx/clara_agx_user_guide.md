@@ -495,7 +495,7 @@ $ sudo chmod -R 777 /media/m2
 1. Install Docker if it has not been installed on your system:
 ```
 $ sudo apt-get update
-$ sudo apt-get install -y docker.io
+$ sudo apt-get install -y docker.io docker-buildx
 ```
 
 2. Create a Docker data directory on the new m.2 SSD partition. This is where Docker will
